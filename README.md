@@ -1,6 +1,6 @@
 # Preptly
 
-A Flutter application using GetX for state management and following Clean Architecture with MVC pattern.
+A Flutter application using BLoC for state management and following Clean Architecture.
 
 ## Setup
 
@@ -38,12 +38,13 @@ The project uses `flutter_launcher_icons` to generate app icons. Follow these st
 
 ## Features
 
-- **State Management:** GetX
-- **Architecture:** Clean Architecture using MVC pattern
+- **State Management:** BLoC pattern with flutter_bloc
+- **Architecture:** Clean Architecture
 - **Responsive UI:** ScreenUtil for dynamic sizing
 - **Constants:** Centralized constants for strings, colors, and styles
 - **Theming:** Centralized theme using a primary and secondary color used throughout the app
 - **Error Handling:** Proper error handling using custom exceptions
+- **Dependency Injection:** Injectable for dependency management
 
 ## Folder Structure
 
@@ -56,24 +57,23 @@ lib/
     - theme/
       - app_theme.dart
     - network/
-    - routes/
-      - app_routes.dart
-      - app_pages.dart
+    - di/
+      - di.dart
+    - services/
+      - api_service.dart
     - widgets/
       - common_button.dart
+      - common_text_form_field.dart
   - features/
     - splash/
       - screen/
         - splash_screen.dart
-      - binding/
-        - splash_binding.dart
     - contact_us/
-      - controller/
-        - contact_us_controller.dart
+      - cubit/
+        - contact_us_cubit.dart
+        - contact_us_state.dart
       - screen/
         - contact_us_screen.dart
-      - binding/
-        - contact_us_binding.dart
 ```
 
 ## Running the Project

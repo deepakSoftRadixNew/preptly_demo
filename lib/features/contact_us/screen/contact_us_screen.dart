@@ -140,6 +140,8 @@ class ContactUsView extends StatelessWidget {
           decoration: InputDecoration(
             hintText: AppStrings.enterName,
             prefixIcon: const Icon(Icons.person_outline),
+            contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.r)),
           ),
           style: GoogleFonts.ptSans(fontSize: 16.sp),
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -167,6 +169,8 @@ class ContactUsView extends StatelessWidget {
           decoration: InputDecoration(
             hintText: AppStrings.enterEmail,
             prefixIcon: const Icon(Icons.email_outlined),
+            contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.r)),
           ),
           style: GoogleFonts.ptSans(fontSize: 16.sp),
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -196,8 +200,10 @@ class ContactUsView extends StatelessWidget {
           onChanged: cubit.updateMessageError,
           decoration: InputDecoration(
             hintText: AppStrings.enterMessage,
-            // prefixIcon: const Icon(Icons.message_outlined),
+            // No prefix icon for multiline to give more space
             alignLabelWithHint: true,
+            contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.r)),
           ),
           style: GoogleFonts.ptSans(fontSize: 16.sp),
           autovalidateMode: AutovalidateMode.onUserInteraction,

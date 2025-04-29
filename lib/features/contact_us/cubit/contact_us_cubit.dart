@@ -26,6 +26,11 @@ class ContactUsCubit extends Cubit<ContactUsState> {
   static const int minNameLength = 2;
   static const int minMessageWords = 10;
 
+  // Emoji regex pattern to detect emojis
+  static final RegExp _emojiRegExp = RegExp(
+    r'(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])',
+  );
+
   /// Creates a ContactUsCubit with injected dependencies
   ContactUsCubit(this._apiService) : super(const ContactUsState());
 
@@ -49,10 +54,20 @@ class ContactUsCubit extends Cubit<ContactUsState> {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
+  // Check if text contains emojis
+  bool _containsEmoji(String text) {
+    return _emojiRegExp.hasMatch(text);
+  }
+
   // Validate name field
   String? validateName(String? value) {
     if (value == null || value.isEmpty) {
       return AppStrings.nameRequired;
+    }
+
+    // Check for emojis
+    if (_containsEmoji(value)) {
+      return AppStrings.emojiNotAllowed;
     }
 
     if (value.length < minNameLength) {
@@ -82,6 +97,11 @@ class ContactUsCubit extends Cubit<ContactUsState> {
       return AppStrings.emailRequired;
     }
 
+    // Check for emojis
+    if (_containsEmoji(value)) {
+      return AppStrings.emojiNotAllowed;
+    }
+
     // Simple email validation
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(value)) {
@@ -95,6 +115,11 @@ class ContactUsCubit extends Cubit<ContactUsState> {
   String? validateMessage(String? value) {
     if (value == null || value.isEmpty) {
       return AppStrings.messageRequired;
+    }
+
+    // Check for emojis
+    if (_containsEmoji(value)) {
+      return AppStrings.emojiNotAllowed;
     }
 
     final wordCount = value.split(' ').where((word) => word.trim().isNotEmpty).length;

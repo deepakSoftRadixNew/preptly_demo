@@ -15,16 +15,18 @@ class AppStrings {
   static const String enterName = 'Enter your name';
   static const String enterEmail = 'Enter your email';
   static const String enterMessage = 'Enter your message';
-  static const String formSubmittedSuccessfully = 'Form submitted successfully!';
+  static const String formSubmittedSuccessfully =
+      'Your message has been sent successfully. We will get back to you soon.';
 
   // Validation Messages
   static const String nameRequired = 'Name is required';
-  static const String nameTooShort = 'Name should be at least 2 characters';
+  static const String nameTooShort = 'Name must be at least 2 characters';
   static const String nameInvalidChars = 'Name contains invalid characters';
   static const String emailRequired = 'Email is required';
-  static const String invalidEmail = 'Please enter a valid email';
+  static const String invalidEmail = 'Please enter a valid email address';
   static const String messageRequired = 'Message is required';
-  static const String messageTooShort = 'Message should be at least 10 words';
+  static const String messageTooShort = 'Message must be at least 10 words';
+  static const String emojiNotAllowed = 'Emojis are not allowed';
 
   // API & Network
   static const String contactUsEndpoint = '/contact-us';

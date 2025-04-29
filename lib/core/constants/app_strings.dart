@@ -25,7 +25,7 @@ class AppStrings {
   static const String emailRequired = 'Email is required';
   static const String invalidEmail = 'Please enter a valid email address';
   static const String messageRequired = 'Message is required';
-  static const String messageTooShort = 'Message must be at least 10 words';
+  static const String messageTooShort = 'Message must be at least 10 characters';
   static const String emojiNotAllowed = 'Emojis are not allowed';
 
   // API & Network

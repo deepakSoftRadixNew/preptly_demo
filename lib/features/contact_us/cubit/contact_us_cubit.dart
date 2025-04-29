@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:preptly/core/constants/app_strings.dart';
+import 'package:preptly/core/services/api_service.dart';
 
-import '../../../core/constants/app_strings.dart';
-import '../../../core/services/api_service.dart';
 import 'contact_us_state.dart';
 
 /// ContactUsCubit manages the state and logic for the contact form
@@ -24,7 +24,7 @@ class ContactUsCubit extends Cubit<ContactUsState> {
 
   // Validation constants
   static const int minNameLength = 2;
-  static const int minMessageWords = 10;
+  static const int minMessageLenth = 10;
 
   // Emoji regex pattern to detect emojis
   static final RegExp _emojiRegExp = RegExp(
@@ -122,9 +122,7 @@ class ContactUsCubit extends Cubit<ContactUsState> {
       return AppStrings.emojiNotAllowed;
     }
 
-    final wordCount = value.split(' ').where((word) => word.trim().isNotEmpty).length;
-
-    if (wordCount < minMessageWords) {
+    if (value.length < minMessageLenth) {
       return AppStrings.messageTooShort;
     }
 

@@ -6,6 +6,7 @@ class CommonButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isLoading;
+  final bool showLoader;
   final double? width;
   final Color? backgroundColor;
   final Color? textColor;
@@ -15,6 +16,7 @@ class CommonButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.isLoading = false,
+    this.showLoader = true,
     this.width,
     this.backgroundColor,
     this.textColor,
@@ -33,7 +35,7 @@ class CommonButton extends StatelessWidget {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
         ),
         child:
-            isLoading
+            isLoading && showLoader
                 ? SizedBox(
                   height: 24.h,
                   width: 24.w,

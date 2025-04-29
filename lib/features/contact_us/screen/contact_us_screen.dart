@@ -85,7 +85,13 @@ class ContactUsView extends StatelessWidget {
   /// Builds the OK button to reset the form
   Widget _buildOkButton(BuildContext context) {
     final cubit = context.read<ContactUsCubit>();
-    return CommonButton(text: AppStrings.ok, onPressed: cubit.resetForm, width: 150.w);
+    return CommonButton(
+      text: AppStrings.ok,
+      onPressed: cubit.resetForm,
+      width: 150.w,
+      isLoading: false,
+      showLoader: false,
+    );
   }
 
   /// Builds the contact form with input fields
@@ -209,9 +215,10 @@ class ContactUsView extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<ContactUsCubit>();
         return CommonButton(
+          showLoader: false,
           text: AppStrings.submit,
           onPressed: cubit.submitForm,
-          isLoading: state.isLoading,
+          isLoading: false,
         );
       },
     );

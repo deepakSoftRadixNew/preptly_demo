@@ -59,7 +59,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   SizedBox(height: 24.h),
                   _buildAppName(),
                   SizedBox(height: 80.h),
-                  _buildLoadingIndicator(),
+                  // _buildLoadingIndicator(),
                 ],
               ),
             ),

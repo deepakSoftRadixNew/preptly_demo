@@ -12,7 +12,7 @@ class ApiService {
     required String message,
   }) async {
     // Simulate network delay
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
 
     // For demo purposes, always return success
     // In a real app, this would make an HTTP request and handle errors

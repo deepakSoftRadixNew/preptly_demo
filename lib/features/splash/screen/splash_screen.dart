@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../core/di/di.dart';
-import '../../../core/routes/app_routes.dart';
-import '../../../core/routes/navigation_helper.dart';
-import '../cubit/splash_cubit.dart';
-import '../cubit/splash_state.dart';
+import 'package:preptly/core/constants/app_colors.dart';
+import 'package:preptly/core/constants/app_strings.dart';
+import 'package:preptly/core/di/di.dart';
+import 'package:preptly/core/routes/app_routes.dart';
+import 'package:preptly/core/routes/navigation_helper.dart';
+import 'package:preptly/features/splash/cubit/splash_cubit.dart';
+import 'package:preptly/features/splash/cubit/splash_state.dart';
 
 /// SplashScreen displays a splash screen with animation
 /// and automatically navigates to the next screen after delay.

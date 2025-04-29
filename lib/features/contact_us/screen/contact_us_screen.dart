@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_strings.dart';
-import '../../../core/di/di.dart';
-import '../../../core/widgets/common_button.dart';
-import '../cubit/contact_us_cubit.dart';
-import '../cubit/contact_us_state.dart';
+import 'package:preptly/core/constants/app_colors.dart';
+import 'package:preptly/core/constants/app_strings.dart';
+import 'package:preptly/core/di/di.dart';
+import 'package:preptly/core/widgets/common_button.dart';
+import 'package:preptly/features/contact_us/cubit/contact_us_cubit.dart';
+import 'package:preptly/features/contact_us/cubit/contact_us_state.dart';
 
 /// ContactUsScreen displays a form for users to send inquiries.
 ///

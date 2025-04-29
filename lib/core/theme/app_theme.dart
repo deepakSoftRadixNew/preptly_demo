@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/app_colors.dart';
 
@@ -7,16 +8,15 @@ class AppTheme {
     return ThemeData(
       primaryColor: AppColors.primaryColor,
       scaffoldBackgroundColor: AppColors.whiteColor,
-      fontFamily: AppColors.fontFamily,
+      fontFamily: GoogleFonts.ptSans().fontFamily,
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primaryColor,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: TextStyle(
+        titleTextStyle: GoogleFonts.ptSans(
           color: AppColors.whiteColor,
           fontSize: 18,
           fontWeight: FontWeight.w600,
-          fontFamily: AppColors.fontFamily,
         ),
         iconTheme: IconThemeData(color: AppColors.whiteColor),
       ),
@@ -44,7 +44,11 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
           borderSide: const BorderSide(color: Colors.red, width: 1),
         ),
-        hintStyle: TextStyle(color: AppColors.hintColor, fontSize: 14, fontWeight: FontWeight.w400),
+        hintStyle: GoogleFonts.ptSans(
+          color: AppColors.hintColor,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -52,11 +56,7 @@ class AppTheme {
           foregroundColor: AppColors.whiteColor,
           minimumSize: const Size.fromHeight(50),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          textStyle: TextStyle(
-            fontFamily: AppColors.fontFamily,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          textStyle: GoogleFonts.ptSans(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
     );

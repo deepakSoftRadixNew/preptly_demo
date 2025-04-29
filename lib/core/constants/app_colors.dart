@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static String fontFamily = 'ProductSans';
+  static String fontFamily = 'PT Sans';
   static Color primaryColor = const Color(0xff833cf6);
   static Color primaryColorDark = const Color(0xff461597);
   static Color whiteColor = const Color(0xffffffff);

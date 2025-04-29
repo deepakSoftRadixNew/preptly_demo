@@ -1,110 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/di/di.dart';
 import '../../../core/routes/app_routes.dart';
+import '../../../core/routes/navigation_helper.dart';
+import '../cubit/splash_cubit.dart';
+import '../cubit/splash_state.dart';
 
-class SplashScreen extends StatefulWidget {
+/// SplashScreen displays a splash screen with animation
+/// and automatically navigates to the next screen after delay.
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(create: (_) => getIt<SplashCubit>(), child: const SplashView());
+  }
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
+/// SplashView implements the UI for the splash screen
+/// and provides the TickerProvider for animations.
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _setupAnimation();
-    _navigateToNextScreen();
-  }
-
-  void _setupAnimation() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    );
-
-    _animation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
-
-    _animationController.forward();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  _navigateToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 3));
-    Get.offAllNamed(AppRoutes.contactUs);
+    // Initialize the cubit with this TickerProvider
+    context.read<SplashCubit>().initialize(this);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.primaryColor,
-      body: Center(
-        child: FadeTransition(
-          opacity: _animation,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // App logo using the actual app icon
-              Container(
-                width: 120.w,
-                height: 120.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: ClipOval(
-                  child: Image.asset(
-                    'assets/icon/playstore.png',
-                    width: 120.w,
-                    height: 120.w,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return BlocConsumer<SplashCubit, SplashState>(
+      listenWhen: (previous, current) => current.isNavigating && !previous.isNavigating,
+      listener: (context, state) {
+        // Handle navigation when ready
+        NavigationHelper.replaceTo(context, AppRoutes.contactUs);
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: AppColors.primaryColor,
+          body: Center(
+            child: AnimatedOpacity(
+              opacity: state.animationValue,
+              duration: const Duration(milliseconds: 300),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 24.h),
+                  _buildAppName(),
+                  SizedBox(height: 80.h),
+                  _buildLoadingIndicator(),
+                ],
               ),
-              SizedBox(height: 24.h),
-              Text(
-                AppStrings.appName,
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.whiteColor,
-                  letterSpacing: 1.2,
-                ),
-              ),
-              SizedBox(height: 80.h),
-              SizedBox(
-                width: 40.w,
-                height: 40.w,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.whiteColor),
-                  strokeWidth: 2.w,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAppName() {
+    return Text(
+      AppStrings.appName,
+      style: GoogleFonts.ptSans(
+        fontSize: 28.sp,
+        fontWeight: FontWeight.bold,
+        color: AppColors.whiteColor,
+        letterSpacing: 1.2,
+      ),
+    );
+  }
+
+  Widget _buildLoadingIndicator() {
+    return SizedBox(
+      width: 40.w,
+      height: 40.w,
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(AppColors.whiteColor),
+        strokeWidth: 2.w,
       ),
     );
   }

@@ -19,7 +19,32 @@ class AppStrings {
 
   // Validation Messages
   static const String nameRequired = 'Name is required';
+  static const String nameTooShort = 'Name should be at least 2 characters';
+  static const String nameInvalidChars = 'Name contains invalid characters';
   static const String emailRequired = 'Email is required';
   static const String invalidEmail = 'Please enter a valid email';
   static const String messageRequired = 'Message is required';
+  static const String messageTooShort = 'Message should be at least 10 words';
+
+  // API & Network
+  static const String contactUsEndpoint = '/contact-us';
+
+  // Comment Placeholders
+  static const String validInput = 'Valid input';
+
+  // Form Keys
+  static const String contactUsFormKey = 'contact_us_form';
+
+  // Field Names for API
+  static const String fieldName = 'name';
+  static const String fieldEmail = 'email';
+  static const String fieldMessage = 'message';
+
+  // Code Comments
+  static const String validateNameComment = 'Validates the name field';
+  static const String validateEmailComment = 'Validates the email field with format checking';
+  static const String validateMessageComment = 'Validates the message field';
+  static const String formSubmissionComment = 'Handles the form submission process';
+  static const String simulateBackendComment = 'Simulates sending form data to backend';
+  static const String resetFormComment = 'Resets the form submission state to show the form again';
 }

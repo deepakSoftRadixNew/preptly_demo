@@ -100,36 +100,13 @@ class ContactUsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildFormField(
-                context: context,
-                label: AppStrings.name,
-                hint: AppStrings.enterName,
-                controller: cubit.nameController,
-                validator: cubit.validateName,
-                onChanged: cubit.updateNameError,
-              ),
+              _buildNameField(context, cubit),
               SizedBox(height: 16.h),
 
-              _buildFormField(
-                context: context,
-                label: AppStrings.email,
-                hint: AppStrings.enterEmail,
-                controller: cubit.emailController,
-                validator: cubit.validateEmail,
-                keyboardType: TextInputType.emailAddress,
-                onChanged: cubit.updateEmailError,
-              ),
+              _buildEmailField(context, cubit),
               SizedBox(height: 16.h),
 
-              _buildFormField(
-                context: context,
-                label: AppStrings.message,
-                hint: AppStrings.enterMessage,
-                controller: cubit.messageController,
-                validator: cubit.validateMessage,
-                maxLines: 5,
-                onChanged: cubit.updateMessageError,
-              ),
+              _buildMessageField(context, cubit),
               SizedBox(height: 30.h),
 
               _buildSubmitButton(context),
@@ -143,29 +120,85 @@ class ContactUsView extends StatelessWidget {
     );
   }
 
-  /// Builds a form field with label and input field
-  Widget _buildFormField({
-    required BuildContext context,
-    required String label,
-    required String hint,
-    required TextEditingController controller,
-    required String? Function(String?) validator,
-    required void Function(String?) onChanged,
-    TextInputType? keyboardType,
-    int? maxLines,
-  }) {
+  /// Builds the name input field
+  Widget _buildNameField(BuildContext context, ContactUsCubit cubit) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildFieldLabel(label),
+        _buildFieldLabel(AppStrings.name),
         SizedBox(height: 8.h),
         TextFormField(
-          controller: controller,
-          validator: validator,
-          keyboardType: keyboardType,
-          maxLines: maxLines ?? 1,
-          onChanged: onChanged,
-          decoration: InputDecoration(hintText: hint),
+          focusNode: cubit.nameFocusNode,
+          controller: cubit.nameController,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.name,
+          textCapitalization: TextCapitalization.words,
+          onFieldSubmitted:
+              (_) => cubit.fieldFocusChange(context, cubit.nameFocusNode, cubit.emailFocusNode),
+          validator: cubit.validateName,
+          onChanged: cubit.updateNameError,
+          decoration: InputDecoration(
+            hintText: AppStrings.enterName,
+            prefixIcon: const Icon(Icons.person_outline),
+          ),
+          style: GoogleFonts.ptSans(fontSize: 16.sp),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+        ),
+      ],
+    );
+  }
+
+  /// Builds the email input field
+  Widget _buildEmailField(BuildContext context, ContactUsCubit cubit) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFieldLabel(AppStrings.email),
+        SizedBox(height: 8.h),
+        TextFormField(
+          focusNode: cubit.emailFocusNode,
+          controller: cubit.emailController,
+          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.emailAddress,
+          onFieldSubmitted:
+              (_) => cubit.fieldFocusChange(context, cubit.emailFocusNode, cubit.messageFocusNode),
+          validator: cubit.validateEmail,
+          onChanged: cubit.updateEmailError,
+          decoration: InputDecoration(
+            hintText: AppStrings.enterEmail,
+            prefixIcon: const Icon(Icons.email_outlined),
+          ),
+          style: GoogleFonts.ptSans(fontSize: 16.sp),
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+        ),
+      ],
+    );
+  }
+
+  /// Builds the message input field
+  Widget _buildMessageField(BuildContext context, ContactUsCubit cubit) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildFieldLabel(AppStrings.message),
+        SizedBox(height: 8.h),
+        TextFormField(
+          focusNode: cubit.messageFocusNode,
+          controller: cubit.messageController,
+          textInputAction: TextInputAction.done,
+          keyboardType: TextInputType.multiline,
+          maxLines: 5,
+          onFieldSubmitted: (_) {
+            cubit.messageFocusNode.unfocus();
+            cubit.submitForm();
+          },
+          validator: cubit.validateMessage,
+          onChanged: cubit.updateMessageError,
+          decoration: InputDecoration(
+            hintText: AppStrings.enterMessage,
+            // prefixIcon: const Icon(Icons.message_outlined),
+            alignLabelWithHint: true,
+          ),
           style: GoogleFonts.ptSans(fontSize: 16.sp),
           autovalidateMode: AutovalidateMode.onUserInteraction,
         ),
@@ -216,7 +249,7 @@ class ContactUsView extends StatelessWidget {
           padding: EdgeInsets.only(top: 16.h),
           child: Text(
             state.errorMessage!,
-            style: GoogleFonts.ptSans(fontSize: 14.sp, color: Colors.red),
+            style: GoogleFonts.ptSans(fontSize: 14.sp, color: AppColors.red),
             textAlign: TextAlign.center,
           ),
         );

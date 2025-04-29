@@ -17,6 +17,11 @@ class ContactUsCubit extends Cubit<ContactUsState> {
   final emailController = TextEditingController();
   final messageController = TextEditingController();
 
+  // Focus nodes for each field
+  final nameFocusNode = FocusNode();
+  final emailFocusNode = FocusNode();
+  final messageFocusNode = FocusNode();
+
   // Validation constants
   static const int minNameLength = 2;
   static const int minMessageWords = 10;
@@ -30,7 +35,18 @@ class ContactUsCubit extends Cubit<ContactUsState> {
     nameController.dispose();
     emailController.dispose();
     messageController.dispose();
+
+    nameFocusNode.dispose();
+    emailFocusNode.dispose();
+    messageFocusNode.dispose();
+
     return super.close();
+  }
+
+  // Move focus to the next field
+  void fieldFocusChange(BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
   }
 
   // Validate name field

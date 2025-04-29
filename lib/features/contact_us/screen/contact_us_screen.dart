@@ -6,6 +6,7 @@ import 'package:preptly/core/constants/app_colors.dart';
 import 'package:preptly/core/constants/app_strings.dart';
 import 'package:preptly/core/di/di.dart';
 import 'package:preptly/core/widgets/common_button.dart';
+import 'package:preptly/core/widgets/common_text_form_field.dart';
 import 'package:preptly/features/contact_us/cubit/contact_us_cubit.dart';
 import 'package:preptly/features/contact_us/cubit/contact_us_state.dart';
 
@@ -124,9 +125,8 @@ class ContactUsView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildFieldLabel(AppStrings.name),
-        SizedBox(height: 8.h),
-        TextFormField(
+        CommonTextFormField(
+          label: AppStrings.name,
           focusNode: cubit.nameFocusNode,
           controller: cubit.nameController,
           textInputAction: TextInputAction.next,
@@ -136,14 +136,8 @@ class ContactUsView extends StatelessWidget {
               (_) => cubit.fieldFocusChange(context, cubit.nameFocusNode, cubit.emailFocusNode),
           validator: cubit.validateName,
           onChanged: cubit.updateNameError,
-          decoration: InputDecoration(
-            hintText: AppStrings.enterName,
-            prefixIcon: const Icon(Icons.person_outline),
-            contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.r)),
-          ),
-          style: GoogleFonts.ptSans(fontSize: 16.sp),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          hintText: AppStrings.enterName,
+          prefixIcon: Icons.person_outline,
         ),
       ],
     );
@@ -154,9 +148,8 @@ class ContactUsView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildFieldLabel(AppStrings.email),
-        SizedBox(height: 8.h),
-        TextFormField(
+        CommonTextFormField(
+          label: AppStrings.email,
           focusNode: cubit.emailFocusNode,
           controller: cubit.emailController,
           textInputAction: TextInputAction.next,
@@ -165,14 +158,8 @@ class ContactUsView extends StatelessWidget {
               (_) => cubit.fieldFocusChange(context, cubit.emailFocusNode, cubit.messageFocusNode),
           validator: cubit.validateEmail,
           onChanged: cubit.updateEmailError,
-          decoration: InputDecoration(
-            hintText: AppStrings.enterEmail,
-            prefixIcon: const Icon(Icons.email_outlined),
-            contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.r)),
-          ),
-          style: GoogleFonts.ptSans(fontSize: 16.sp),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          hintText: AppStrings.enterEmail,
+          prefixIcon: Icons.email_outlined,
         ),
       ],
     );
@@ -183,9 +170,8 @@ class ContactUsView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildFieldLabel(AppStrings.message),
-        SizedBox(height: 8.h),
-        TextFormField(
+        CommonTextFormField(
+          label: AppStrings.message,
           focusNode: cubit.messageFocusNode,
           controller: cubit.messageController,
           textInputAction: TextInputAction.done,
@@ -197,15 +183,8 @@ class ContactUsView extends StatelessWidget {
           },
           validator: cubit.validateMessage,
           onChanged: cubit.updateMessageError,
-          decoration: InputDecoration(
-            hintText: AppStrings.enterMessage,
-            // No prefix icon for multiline to give more space
-            alignLabelWithHint: true,
-            contentPadding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.w),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.r)),
-          ),
-          style: GoogleFonts.ptSans(fontSize: 16.sp),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          hintText: AppStrings.enterMessage,
+          // No prefix icon for multiline text area
         ),
       ],
     );
